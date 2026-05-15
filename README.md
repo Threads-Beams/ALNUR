@@ -29,7 +29,7 @@ pip install alnur
 Or install from source:
 
 ```bash
-git clone https://github.com/alnur-sec/alnur
+git clone https://github.com/threads-beams/alnur
 cd alnur
 pip install -e .
 ```
