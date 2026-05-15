@@ -54,7 +54,7 @@ _BANNER = """
 ██╔══██║██║     ██║╚██╗██║██║   ██║██╔══██╗
 ██║  ██║███████╗██║ ╚████║╚██████╔╝██║  ██║
 ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝[/bold cyan]
-[dim cyan]       Open-Source Vulnerability Scanner v1.0.0[/dim cyan]
+[dim cyan]       Open-Source Vulnerability Scanner v1.0.1[/dim cyan]
 """
 
 

@@ -199,7 +199,7 @@ def render(result: ScanResult) -> str:
   {_section("Port Risk Analysis", port_rows, len(result.port_findings), None, "port-section")}
 
   <div class="footer">
-    <strong>ALNUR</strong> — Open-Source Security Scanner v1.0.0<br>
+    <strong>ALNUR</strong> — Open-Source Security Scanner v1.0.1<br>
     Report generated {now} · Risk Score: {result.risk_score}/1000 · Grade: {grade}<br>
     <em>This report is for informational purposes. Always verify findings before remediation.</em>
   </div>

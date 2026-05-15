@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "alnur"
-version = "1.0.0"
+version = "1.0.1"
 description = "ALNUR — Open-source end-to-end vulnerability identifier for applications"
 readme = "README.md"
 license = { text = "MIT" }
-authors = [{ name = "ALNUR Project" }]
+authors = [{ name = "Habib Hussain", email = "hello@threadsandbeams.com" }]
 keywords = ["security", "vulnerability", "cve", "scanner", "sast", "devsecops", "dependency-audit"]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -48,9 +48,9 @@ dev = [
 alnur = "alnur.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/alnur-sec/alnur"
-Repository = "https://github.com/alnur-sec/alnur"
-Issues = "https://github.com/alnur-sec/alnur/issues"
+Homepage = "https://github.com/Threads-Beams/ALNUR"
+Repository = "https://github.com/Threads-Beams/ALNUR"
+Issues = "https://github.com/Threads-Beams/ALNUR/issues"
 
 [tool.setuptools.packages.find]
 where = ["."]
