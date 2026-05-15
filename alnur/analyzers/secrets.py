@@ -144,13 +144,13 @@ _PATTERNS: List[Tuple[re.Pattern, str, Severity, str]] = [
         "Hardcoded password value found in source",
     ),
     (
-        re.compile(r"(?i)(?:secret_key|secret|api_secret)\s*[=:]\s*['\"]([^'\"\s]{12,})['\"]"),
+        re.compile(r"(?i)(?:secret_key|secret|api_secret)\s*[=:]\s*['\"]([^'\"\s]{12,})['\"]"),  # alnur: ignore
         "Hardcoded Secret",
         Severity.HIGH,
         "Hardcoded secret/key value found in source",
     ),
     (
-        re.compile(r"(?i)(?:private_key|privatekey)\s*[=:]\s*['\"]([^'\"\s]{16,})['\"]"),
+        re.compile(r"(?i)(?:private_key|privatekey)\s*[=:]\s*['\"]([^'\"\s]{16,})['\"]"),  # alnur: ignore
         "Hardcoded Private Key Value",
         Severity.HIGH,
         "Hardcoded private key value found in source",
@@ -216,6 +216,8 @@ def _scan_file(path: Path) -> List[SecretFinding]:
 
     for lineno, line in enumerate(lines, start=1):
         if len(line) > _MAX_LINE_LENGTH:
+            continue
+        if "# alnur: ignore" in line:
             continue
         stripped = line.strip()
         if stripped.startswith(("#", "//", "*", "<!--", ";")):

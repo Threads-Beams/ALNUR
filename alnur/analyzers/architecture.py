@@ -199,7 +199,7 @@ _RULES: List[Rule] = [
     ),
     _rule(
         "TLS004", "TLS/SSL Misconfiguration", "MEDIUM",
-        r"http://(?!localhost|127\.0\.0\.1|0\.0\.0\.0)[a-zA-Z0-9\-]+\.[a-zA-Z]{2,}",
+        r"http://(?!localhost|127\.0\.0\.1|0\.0\.0\.0|(?:www\.)?(?:w3\.org|maven\.apache\.org|xmlsoap\.org|springframework\.org|schemas\.microsoft\.com|dublincore\.org|purl\.org))[a-zA-Z0-9\-]+\.[a-zA-Z]{2,}",
         "External URL uses plain HTTP — data transmitted unencrypted",
         "Use HTTPS for all external communications",
         ("*.py", "*.js", "*.ts", "*.php", "*.rb", "*.java", "*.go"), "CWE-319",
@@ -410,6 +410,8 @@ def scan(root: Path, max_file_bytes: int = _MAX_FILE_BYTES) -> List[Architecture
                 if rule.negative_lookahead and rule.negative_lookahead.search(match.group(0)):
                     continue
                 lineno = text[: match.start()].count("\n") + 1
+                if lineno <= len(lines) and "# alnur: ignore" in lines[lineno - 1]:
+                    continue
                 line_preview = lines[lineno - 1].strip()[:120] if lineno <= len(lines) else ""
                 findings.append(ArchitectureFinding(
                     rule_id=rule.id,
