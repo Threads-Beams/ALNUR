@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "alnur"
-version = "1.0.1"
+version = "1.0.2"
 description = "ALNUR — Open-source end-to-end vulnerability identifier for applications"
 readme = "README.md"
 license = { text = "MIT" }

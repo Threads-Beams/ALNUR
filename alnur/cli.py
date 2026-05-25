@@ -20,7 +20,7 @@ _OUTPUT_CHOICES = ["console", "json", "html", "all"]
 
 
 @click.group()
-@click.version_option("1.0.0", prog_name="alnur")
+@click.version_option("1.0.2", prog_name="alnur")
 def main() -> None:
     """ALNUR — Open-source end-to-end vulnerability scanner."""
 

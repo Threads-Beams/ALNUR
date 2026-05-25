@@ -19,7 +19,7 @@ def write(result: ScanResult, output_path: Path) -> None:
 
 def _to_dict(result: ScanResult) -> Dict[str, Any]:
     return {
-        "alnur_version": "1.0.0",
+        "alnur_version": "1.0.2",
         "scan_timestamp": datetime.now(timezone.utc).isoformat(),
         "target_path": result.target_path,
         "project_types": [pt.value for pt in result.project_types],
