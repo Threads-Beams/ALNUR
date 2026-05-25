@@ -106,6 +106,16 @@ def _to_dict(result: ScanResult) -> Dict[str, Any]:
             }
             for f in sorted(result.port_findings, key=lambda x: x.risk.weight, reverse=True)
         ],
+        "llm_insight": (
+            {
+                "provider": result.llm_insight.provider,
+                "model": result.llm_insight.model,
+                "executive_summary": result.llm_insight.executive_summary,
+                "priority_actions": result.llm_insight.priority_actions,
+                "false_positive_notes": result.llm_insight.false_positive_notes,
+            }
+            if result.llm_insight else None
+        ),
         "errors": result.errors,
         "packages_scanned": len(result.packages),
     }

@@ -33,8 +33,10 @@ def main() -> None:
 @click.option("--skip-cve", is_flag=True, default=False, help="Skip CVE/vulnerability check")
 @click.option("--skip-secrets", is_flag=True, default=False, help="Skip secrets detection")
 @click.option("--skip-arch", is_flag=True, default=False, help="Skip architecture analysis")
+@click.option("--skip-agentic", is_flag=True, default=False, help="Skip agentic AI security analysis")
 @click.option("--skip-standards", is_flag=True, default=False, help="Skip standards compliance check")
 @click.option("--skip-ports", is_flag=True, default=False, help="Skip port risk analysis")
+@click.option("--no-llm", is_flag=True, default=False, help="Disable LLM-enhanced analysis even if an API key is set")
 @click.option("--no-dev", is_flag=True, default=False, help="Exclude dev dependencies from CVE scan")
 @click.option("--verbose", "-v", is_flag=True, default=False, help="Show detailed output")
 @click.option("--quiet", "-q", is_flag=True, default=False, help="Only show final result (suppresses progress)")
@@ -46,8 +48,10 @@ def scan(
     skip_cve: bool,
     skip_secrets: bool,
     skip_arch: bool,
+    skip_agentic: bool,
     skip_standards: bool,
     skip_ports: bool,
+    no_llm: bool,
     no_dev: bool,
     verbose: bool,
     quiet: bool,
@@ -70,8 +74,10 @@ def scan(
         skip_cve=skip_cve,
         skip_secrets=skip_secrets,
         skip_architecture=skip_arch,
+        skip_agentic=skip_agentic,
         skip_standards=skip_standards,
         skip_ports=skip_ports,
+        skip_llm=no_llm,
         include_dev_deps=not no_dev,
     )
 
@@ -136,10 +142,14 @@ def _build_steps(config: ScanConfig) -> list:
         steps.append("Scanning for secrets")
     if not config.skip_architecture:
         steps.append("Analyzing architecture")
+    if not config.skip_agentic:
+        steps.append("Scanning agentic AI risks")
     if not config.skip_standards:
         steps.append("Checking standards compliance")
     if not config.skip_ports:
         steps.append("Analyzing port configurations")
+    if not config.skip_llm:
+        steps.append("Running LLM-enhanced analysis (if configured)")
     steps.append("Generating report")
     return steps
 

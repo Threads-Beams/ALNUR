@@ -61,7 +61,7 @@ _RULES: List[Rule] = [
         "INJ001", "Injection", "HIGH",
         r"cursor\.execute\s*\(\s*[f\"'].*(?:SELECT|INSERT|UPDATE|DELETE|DROP|CREATE)",
         "Potential SQL injection via string formatting in cursor.execute()",
-        "Use parameterized queries: cursor.execute('SELECT ... WHERE id=%s', (value,))",
+        "Use parameterized queries: cursor.execute('SELECT ... WHERE id=%s', (value,))",  # alnur: ignore
         ("*.py",), "CWE-89",
     ),
     _rule(
@@ -74,7 +74,7 @@ _RULES: List[Rule] = [
     _rule(
         "INJ003", "Injection", "HIGH",
         r"os\.system\s*\(.*(?:request|req|input|param|query|body)",
-        "Possible command injection: os.system() with user-controlled input",
+        "Possible command injection: os.system() with user-controlled input",  # alnur: ignore
         "Use subprocess with a list of arguments and avoid shell=True",
         ("*.py",), "CWE-78",
     ),
@@ -125,14 +125,14 @@ _RULES: List[Rule] = [
     _rule(
         "DESER001", "Insecure Deserialization", "HIGH",
         r"pickle\.loads?\s*\(",
-        "pickle.load()/loads() deserializes arbitrary Python objects — RCE risk",
+        "pickle.load()/loads() deserializes arbitrary Python objects — RCE risk",  # alnur: ignore
         "Never deserialize untrusted data with pickle. Use JSON or restrict to trusted sources",
         ("*.py",), "CWE-502",
     ),
     _rule(
         "DESER002", "Insecure Deserialization", "HIGH",
         r"yaml\.load\s*\([^)]*\)",
-        "yaml.load() without Loader= is unsafe — can execute arbitrary code",
+        "yaml.load() without Loader= is unsafe — can execute arbitrary code",  # alnur: ignore
         "Use yaml.safe_load() or yaml.load(data, Loader=yaml.SafeLoader)",
         ("*.py",), "CWE-502",
         negative=r"yaml\.load\s*\([^)]*Loader\s*=",
@@ -180,7 +180,7 @@ _RULES: List[Rule] = [
         "TLS001", "TLS/SSL Misconfiguration", "HIGH",
         r"verify\s*=\s*False",
         "SSL certificate verification disabled in HTTP request",
-        "Remove verify=False; configure proper CA bundle if needed",
+        "Remove verify=False; configure proper CA bundle if needed",  # alnur: ignore
         ("*.py",), "CWE-295",
     ),
     _rule(
@@ -209,14 +209,14 @@ _RULES: List[Rule] = [
     _rule(
         "DJANGO001", "Framework Misconfiguration", "HIGH",
         r"DEBUG\s*=\s*True",
-        "Django DEBUG=True exposes stack traces, settings, and SQL queries to attackers",
+        "Django DEBUG=True exposes stack traces, settings, and SQL queries to attackers",  # alnur: ignore
         "Set DEBUG=False in production; use environment variables to control this",
         ("*.py",), "CWE-209",
     ),
     _rule(
         "DJANGO002", "Framework Misconfiguration", "HIGH",
         r"ALLOWED_HOSTS\s*=\s*\[\s*['\"]?\*['\"]?\s*\]",
-        "Django ALLOWED_HOSTS=['*'] allows HTTP Host header injection",
+        "Django ALLOWED_HOSTS=['*'] allows HTTP Host header injection",  # alnur: ignore
         "Set ALLOWED_HOSTS to specific domain names in production",
         ("*.py",), "CWE-20",
     ),

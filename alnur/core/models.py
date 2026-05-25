@@ -32,6 +32,12 @@ class Severity(str, Enum):
     def __le__(self, other: "Severity") -> bool:
         return self.weight <= other.weight
 
+    def __gt__(self, other: "Severity") -> bool:
+        return self.weight > other.weight
+
+    def __ge__(self, other: "Severity") -> bool:
+        return self.weight >= other.weight
+
 
 class ProjectType(str, Enum):
     NODEJS = "Node.js"
@@ -129,13 +135,26 @@ class PortFinding:
 
 
 @dataclass
+class LLMInsight:
+    """Enhanced security analysis produced by an optional LLM backend."""
+
+    provider: str
+    model: str
+    executive_summary: str
+    priority_actions: List[str] = field(default_factory=list)
+    false_positive_notes: str = ""
+
+
+@dataclass
 class ScanConfig:
     min_severity: Severity = Severity.LOW
     skip_cve: bool = False
     skip_secrets: bool = False
     skip_architecture: bool = False
+    skip_agentic: bool = False
     skip_standards: bool = False
     skip_ports: bool = False
+    skip_llm: bool = False
     include_dev_deps: bool = True
     max_file_size_bytes: int = 1_048_576
 
@@ -150,6 +169,7 @@ class ScanResult:
     architecture_findings: List[ArchitectureFinding] = field(default_factory=list)
     standards_findings: List[StandardsFinding] = field(default_factory=list)
     port_findings: List[PortFinding] = field(default_factory=list)
+    llm_insight: Optional[LLMInsight] = None
     scan_duration: float = 0.0
     errors: List[str] = field(default_factory=list)
 

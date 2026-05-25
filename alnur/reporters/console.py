@@ -13,6 +13,7 @@ from rich.text import Text
 
 from alnur.core.models import (
     ArchitectureFinding,
+    LLMInsight,
     PortFinding,
     ScanResult,
     SecretFinding,
@@ -66,6 +67,7 @@ def render(result: ScanResult, verbose: bool = False) -> None:
     _render_architecture(result.architecture_findings, verbose)
     _render_standards(result.standards_findings)
     _render_ports(result.port_findings, verbose)
+    _render_llm_insight(result)
     _render_footer(result)
 
 
@@ -287,6 +289,33 @@ def _render_ports(findings: List[PortFinding], verbose: bool) -> None:
 
     console.print(table)
     console.print()
+
+
+def _render_llm_insight(result: ScanResult) -> None:
+    insight = result.llm_insight
+    if insight is None:
+        return
+
+    console.print(Rule(f"[bold cyan]AI Security Analysis[/bold cyan] [dim]via {insight.provider} · {insight.model}[/dim]", style="cyan"))
+    console.print()
+
+    if insight.executive_summary:
+        console.print(Panel(
+            f"[bold]Executive Summary[/bold]\n\n{insight.executive_summary}",
+            border_style="cyan",
+            padding=(1, 2),
+        ))
+        console.print()
+
+    if insight.priority_actions:
+        console.print("[bold]Priority Remediation Actions:[/bold]")
+        for i, action in enumerate(insight.priority_actions, 1):
+            console.print(f"  [bold cyan]{i}.[/bold cyan] {action}")
+        console.print()
+
+    if insight.false_positive_notes:
+        console.print(f"[dim]ℹ False-positive note: {insight.false_positive_notes}[/dim]")
+        console.print()
 
 
 def _render_footer(result: ScanResult) -> None:
